@@ -5,14 +5,19 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { MatchResults } from "@stencil-community/router";
 export namespace Components {
     interface AppHome {
     }
     interface AppProfile {
-        "match": MatchResults;
+        "params": { name: string; };
     }
     interface AppRoot {
+    }
+    interface AppRouter {
+    }
+    interface SharedButton {
+        "label": string;
+        "onClickFn": () => void;
     }
 }
 declare global {
@@ -34,24 +39,46 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLAppRouterElement extends Components.AppRouter, HTMLStencilElement {
+    }
+    var HTMLAppRouterElement: {
+        prototype: HTMLAppRouterElement;
+        new (): HTMLAppRouterElement;
+    };
+    interface HTMLSharedButtonElement extends Components.SharedButton, HTMLStencilElement {
+    }
+    var HTMLSharedButtonElement: {
+        prototype: HTMLSharedButtonElement;
+        new (): HTMLSharedButtonElement;
+    };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "app-router": HTMLAppRouterElement;
+        "shared-button": HTMLSharedButtonElement;
     }
 }
 declare namespace LocalJSX {
     interface AppHome {
     }
     interface AppProfile {
-        "match"?: MatchResults;
+        "params"?: { name: string; };
     }
     interface AppRoot {
+    }
+    interface AppRouter {
+    }
+    interface SharedButton {
+        "label"?: string;
+        "onClickFn"?: () => void;
     }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
+        "app-router": AppRouter;
+        "shared-button": SharedButton;
     }
 }
 export { LocalJSX as JSX };
@@ -61,6 +88,8 @@ declare module "@stencil/core" {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "app-router": LocalJSX.AppRouter & JSXBase.HTMLAttributes<HTMLAppRouterElement>;
+            "shared-button": LocalJSX.SharedButton & JSXBase.HTMLAttributes<HTMLSharedButtonElement>;
         }
     }
 }

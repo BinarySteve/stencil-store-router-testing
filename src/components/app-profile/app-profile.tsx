@@ -1,5 +1,5 @@
 import { Component, Prop, h } from '@stencil/core';
-import { MatchResults } from '@stencil-community/router';
+import {routerStore} from "../../router/routerStore";
 
 @Component({
   tag: 'app-profile',
@@ -7,7 +7,7 @@ import { MatchResults } from '@stencil-community/router';
   shadow: true,
 })
 export class AppProfile {
-  @Prop() match: MatchResults;
+  @Prop() params: { name: string; } ;
 
   normalize(name: string): string {
     if (name) {
@@ -17,10 +17,11 @@ export class AppProfile {
   }
 
   render() {
-    if (this.match && this.match.params.name) {
+    if (this.params?.name) {
       return (
         <div class="app-profile">
-          <p>Hello! My name is {this.normalize(this.match.params.name)}. My name was passed in through a route param!</p>
+          <p>Hello! My name is {this.normalize(this.params?.name)}. My name was passed in through a route param!</p>
+          <shared-button onClickFn={()=> routerStore.navigate("/")} label={"Go Back"}/>
         </div>
       );
     }
